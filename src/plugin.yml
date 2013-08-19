@@ -1,0 +1,29 @@
+name: TheMcTnTPlugin
+description: MiniGame manager for the mctnt plugin
+authors: [Harry5573]
+website: www.mc-tnt.net
+main: com.mctnt.plugin.core.TheMcTnTPlugin
+version: 0.8-SNAPSHOT
+depend: [ WorldGuard, WGCustomFlags, TagAPI, WorldEdit ]
+database: false
+commands:
+  announce:
+    description: Announcer command for mctnt
+  broadcast:
+    desctiption: Broadcast command global
+  bcast:
+    desctiption: Broadcast command global shorter
+  mctnt:
+    description: Main plugin command
+  tnt:
+    description: Short main plugin command
+  sethome:
+    description: Sethome for admins
+  home:
+    description: Home for admins
+  map:
+    description: Displays current map
+  reboot:
+    description: Restart the server
+  join:
+    description: Join the current game

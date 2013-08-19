@@ -1,0 +1,24 @@
+##[McTnTPlugin] Configuration
+##Plugin coded by harry5573
+
+##Prefix to use before/after messages
+prefix: '&6[McTnT]'
+##Prefix to use for /broadcast
+broadcastprefix: '&4[Announcement]'
+##Should we stop players generating NEW chunks if there new?
+chunkgenoff: true
+##Message to set as MOTD
+motd: '&bJOIN TODAY'
+##Should dispensors be infinite:
+infinite: true
+##Current map
+currentmap:
+##Map its going to cycle to next
+cycletomap:
+##Is it in cycle?
+incycle: true
+##Are we in pre game
+inpregame: false
+##Maps in rotation
+maps:
+- airshipbattle
