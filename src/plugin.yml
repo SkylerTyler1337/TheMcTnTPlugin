@@ -27,3 +27,5 @@ commands:
     description: Restart the server
   join:
     description: Join the current game
+  cycle:
+    description: Cycles the maps for server admins

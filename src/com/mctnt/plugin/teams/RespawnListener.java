@@ -36,7 +36,7 @@ public class RespawnListener implements Listener {
                 redloc = new Location(plugin.getServer().getWorld(plugin.getCurrentMap()), x, y, z);
             }
             e.setRespawnLocation(redloc);
-            plugin.itemh.giveItems(e.getPlayer());
+            plugin.ih.giveItems(e.getPlayer());
             return;
         }
         if (plugin.isBlue.contains(e.getPlayer())) {
@@ -50,7 +50,7 @@ public class RespawnListener implements Listener {
                 blueloc = new Location(plugin.getServer().getWorld(plugin.getCurrentMap()), x, y, z);
             }
             e.setRespawnLocation(blueloc);
-            plugin.itemh.giveItems(e.getPlayer());
+            plugin.ih.giveItems(e.getPlayer());
             return;
         } else {
             Location specloc = null;

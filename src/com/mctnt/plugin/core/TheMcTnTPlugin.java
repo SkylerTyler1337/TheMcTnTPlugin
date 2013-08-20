@@ -8,6 +8,7 @@ import com.mctnt.countdown.PreGame;
 import com.mctnt.plugin.broadcast.AnnounceCommand;
 import com.mctnt.plugin.broadcast.BroadcastCommand;
 import com.mctnt.plugin.broadcast.BroadcastManager;
+import com.mctnt.plugin.command.CommandCycle;
 import com.mctnt.plugin.command.CommandJoin;
 import com.mctnt.plugin.command.CommandMap;
 import com.mctnt.plugin.command.CommandMcTNT;
@@ -18,7 +19,6 @@ import com.mctnt.plugin.util.InfiniteDispensor;
 import com.mctnt.plugin.util.PlayerLogMessages;
 import com.mctnt.plugin.util.SnowFix;
 import com.mctnt.plugin.gamemodes.CaptureTheCore;
-import com.mctnt.plugin.util.ItemHandler;
 import com.mctnt.plugin.maps.MapManager;
 import com.mctnt.plugin.restart.RestartCommand;
 import com.mctnt.plugin.teams.AntiTeamkill;
@@ -34,6 +34,7 @@ import static com.mctnt.plugin.gamemodes.CaptureTheCore.BLUE_CORE;
 import com.mctnt.plugin.util.AntiFallDamage;
 import com.mctnt.plugin.util.ChunkGeneration;
 import com.mctnt.plugin.util.Compass;
+import com.mctnt.plugin.util.ItemHandler;
 import com.mctnt.plugin.util.MotdPing;
 import com.mctnt.plugin.util.NameTags;
 import com.mctnt.plugin.util.TeamSelector;
@@ -73,7 +74,8 @@ public class TheMcTnTPlugin extends JavaPlugin {
     public Spectate smanager;
     public RedBlue rb;
     public RandomTeam randomteam;
-    public ItemHandler itemh;
+    public ItemHandler ih;
+    public CommandCycle cc;
     
     //3 Lists For Teams
     public ArrayList<Player> isSpectator = new ArrayList<Player>();
@@ -98,7 +100,8 @@ public class TheMcTnTPlugin extends JavaPlugin {
         this.smanager = new Spectate(this);
         this.rb = new RedBlue(this);
         this.randomteam = new RandomTeam(this);
-        this.itemh = new ItemHandler(this);
+        this.ih = new ItemHandler(this);
+        this.cc = new CommandCycle(this);
 
         //Kick everyone on reload/start if they somehow get in :)
         for (Player pl : Bukkit.getOnlinePlayers()) {
@@ -144,6 +147,7 @@ public class TheMcTnTPlugin extends JavaPlugin {
         this.getCommand("map").setExecutor(new CommandMap(this));
         this.getCommand("reboot").setExecutor(new RestartCommand(this));
         this.getCommand("join").setExecutor(new CommandJoin(this));
+        this.getCommand("cycle").setExecutor(new CommandCycle(this));
 
         this.pluginWorldGuard = WorldGuardUtils.getWorldGuard(this);
         this.pluginWGCustomFlags = WorldGuardUtils.getWGCustomFlags(this);
