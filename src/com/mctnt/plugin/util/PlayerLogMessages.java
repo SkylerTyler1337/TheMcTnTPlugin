@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mctnt.plugin.event;
+package com.mctnt.plugin.util;
 
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;

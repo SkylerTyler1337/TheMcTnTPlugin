@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mctnt.plugin.item;
+package com.mctnt.plugin.util;
 
 import com.mctnt.plugin.core.TheMcTnTPlugin;
 import java.util.List;

@@ -4,7 +4,6 @@
  */
 package com.mctnt.plugin.core;
 
-import com.mctnt.countdown.Game;
 import com.mctnt.countdown.PreGame;
 import com.mctnt.plugin.broadcast.AnnounceCommand;
 import com.mctnt.plugin.broadcast.BroadcastCommand;
@@ -13,16 +12,15 @@ import com.mctnt.plugin.command.CommandJoin;
 import com.mctnt.plugin.command.CommandMap;
 import com.mctnt.plugin.command.CommandMcTNT;
 import com.mctnt.plugin.command.CommandSethome;
-import com.mctnt.plugin.event.ColorSigns;
-import com.mctnt.plugin.event.GameModeChangeEvent;
-import com.mctnt.plugin.event.InfiniteDispensor;
-import com.mctnt.plugin.event.PlayerLogMessages;
-import com.mctnt.plugin.event.SnowFix;
+import com.mctnt.plugin.util.ColorSigns;
+import com.mctnt.plugin.util.GameModeChangeEvent;
+import com.mctnt.plugin.util.InfiniteDispensor;
+import com.mctnt.plugin.util.PlayerLogMessages;
+import com.mctnt.plugin.util.SnowFix;
 import com.mctnt.plugin.gamemodes.CaptureTheCore;
-import com.mctnt.plugin.item.ItemHandler;
+import com.mctnt.plugin.util.ItemHandler;
 import com.mctnt.plugin.maps.MapManager;
 import com.mctnt.plugin.restart.RestartCommand;
-import com.mctnt.plugin.teams.AntiFallDamage;
 import com.mctnt.plugin.teams.AntiTeamkill;
 import com.mctnt.plugin.teams.RandomTeam;
 import com.mctnt.plugin.teams.RedBlue;
@@ -33,6 +31,7 @@ import com.mctnt.plugin.util.AntiBuildInBase;
 import static com.mctnt.plugin.util.AntiBuildInBase.GLOBAL_BUILD;
 import static com.mctnt.plugin.gamemodes.CaptureTheCore.RED_CORE;
 import static com.mctnt.plugin.gamemodes.CaptureTheCore.BLUE_CORE;
+import com.mctnt.plugin.util.AntiFallDamage;
 import com.mctnt.plugin.util.ChunkGeneration;
 import com.mctnt.plugin.util.Compass;
 import com.mctnt.plugin.util.MotdPing;
@@ -64,7 +63,7 @@ public class TheMcTnTPlugin extends JavaPlugin {
     
     public static PluginDescriptionFile pdfFile = null;
     
-    public int counter = 0;
+    public int mapcounter = 0;
     
     public BroadcastManager bfm;
     public ConfigurationManager cfManager;
@@ -101,11 +100,12 @@ public class TheMcTnTPlugin extends JavaPlugin {
         this.randomteam = new RandomTeam(this);
         this.itemh = new ItemHandler(this);
 
-        //Kick everyone on reload
+        //Kick everyone on reload/start if they somehow get in :)
         for (Player pl : Bukkit.getOnlinePlayers()) {
             pl.kickPlayer(ChatColor.DARK_RED + "" + ChatColor.BOLD + "*** SERVER RESTARTING ***");
         }
         
+        //Clear all of the arraylists
         isSpectator.clear();
         isRed.clear();
         isBlue.clear();
@@ -246,22 +246,24 @@ public class TheMcTnTPlugin extends JavaPlugin {
         return this.pluginWorldGuard;
     }
     
-    //Get list of maps
+    //Get list of maps from the configuration 
     public String[] getMaps() {
         return Arrays.copyOf(getConfig().getList("maps").toArray(), getConfig().getList("maps").toArray().length, String[].class);
     }
  
-    //Cycle
+    //
+    //Cycle the maps BETA 
+    //
     public void cycleMaps() {
-        if (this.counter >= getMaps().length) {
-            this.counter = 0;
+        if (this.mapcounter >= getMaps().length) {
+            this.mapcounter = 0;
         }
-        getConfig().set("cycletomap", getMaps()[this.counter]);
+        getConfig().set("cycletomap", getMaps()[this.mapcounter]);
         saveConfig();
         System.out.println("[TheMcTnTPlugin] Cycling to " + getConfig().getString("cycletomap"));
         
         //Add 1
-        this.counter += 1;
+        this.mapcounter += 1;
     }
  
 }
