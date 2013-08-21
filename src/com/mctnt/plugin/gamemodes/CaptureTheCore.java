@@ -141,8 +141,7 @@ public class CaptureTheCore implements Listener {
     }
 
     public void teamWin(Plugin plugin, String team) {
-        String redteam = "red";
-        TeamWinEvent event = new TeamWinEvent(plugin, redteam);
+        TeamWinEvent event = new TeamWinEvent(plugin, team);
         Bukkit.getServer().getPluginManager().callEvent(event);
     }
 }
