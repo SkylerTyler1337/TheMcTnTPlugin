@@ -4,6 +4,7 @@
  */
 package com.mctnt.plugin.gamemodes;
 
+import com.mctnt.api.TeamWinEvent;
 import com.mctnt.countdown.Cycle;
 import com.mctnt.plugin.core.TheMcTnTPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
@@ -20,6 +21,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.plugin.Plugin;
 
 /**
  *
@@ -97,6 +99,11 @@ public class CaptureTheCore implements Listener {
         if (!(plugin.getConfig().getString("incycle").equals("false") && (plugin.getConfig().getString("inpregame").equals("false")))) {
             return;
         }
+        
+        //Return if its cycling
+        if (plugin.getConfig().get("incycle").equals("true")) {
+            return;
+        }
 
         if ((e.getBlock().getLocation().getBlockX() == coreredx) && (e.getBlock().getLocation().getBlockZ() == coreredz)) {
             System.out.println("[TheMcTnTPlugin] Blue team won the game!");
@@ -104,6 +111,8 @@ public class CaptureTheCore implements Listener {
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "##" + ChatColor.GOLD + "  Game Over!  " + ChatColor.DARK_PURPLE + "####");
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "##" + ChatColor.BLUE + " Blue Team Wins! " + ChatColor.DARK_PURPLE + "##");
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "#################");
+            
+            teamWin(plugin, "blue");
             
             //Cancel the game task
             Bukkit.getScheduler().cancelAllTasks();
@@ -118,6 +127,9 @@ public class CaptureTheCore implements Listener {
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "#################");
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "##" + ChatColor.GOLD + "  Game Over!  " + ChatColor.DARK_PURPLE + "####");
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "##" + ChatColor.DARK_RED + " Red Team Wins! " + ChatColor.DARK_PURPLE + "##");
+            
+            teamWin(plugin, "red");
+            
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "#################");
             //Cancel the game task
             Bukkit.getScheduler().cancelAllTasks();
@@ -126,5 +138,11 @@ public class CaptureTheCore implements Listener {
             new Cycle(plugin).runTaskTimer(plugin, 0L, 20L);
             return;
         }
+    }
+
+    public void teamWin(Plugin plugin, String team) {
+        String redteam = "red";
+        TeamWinEvent event = new TeamWinEvent(plugin, redteam);
+        Bukkit.getServer().getPluginManager().callEvent(event);
     }
 }
