@@ -67,7 +67,7 @@ public class TheMcTnTPlugin extends JavaPlugin {
     public Spectate smanager;
     public RedBlue rb;
     public RandomTeam randomteam;
-    public ItemHandler ih;
+    public ItemHandler itemhandler;
     public CommandCycle cc;
     
     //3 Lists For Teams
@@ -93,7 +93,7 @@ public class TheMcTnTPlugin extends JavaPlugin {
         this.smanager = new Spectate(this);
         this.rb = new RedBlue(this);
         this.randomteam = new RandomTeam(this);
-        this.ih = new ItemHandler(this);
+        this.itemhandler = new ItemHandler(this);
         this.cc = new CommandCycle(this);
 
         //Kick everyone on reload/start if they somehow get in :)

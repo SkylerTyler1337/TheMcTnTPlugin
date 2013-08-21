@@ -101,41 +101,43 @@ public class CaptureTheCore implements Listener {
         }
         
         //Return if its cycling
-        if (plugin.getConfig().get("incycle").equals("true")) {
+        if (plugin.getConfig().get("incycle").equals(true)) {
             return;
         }
 
         if ((e.getBlock().getLocation().getBlockX() == coreredx) && (e.getBlock().getLocation().getBlockZ() == coreredz)) {
+           
+            //Cancel the game task
+            Bukkit.getScheduler().cancelAllTasks();
+            //Quick fix for it canceling auto broadcasts
+            plugin.bfm.scheduleAnnouncerTask();
+            //Cycle the maps!
+            new Cycle(plugin).runTaskTimer(plugin, 0L, 20L);
+            
             System.out.println("[TheMcTnTPlugin] Blue team won the game!");
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "#################");
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "##" + ChatColor.GOLD + "  Game Over!  " + ChatColor.DARK_PURPLE + "####");
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "##" + ChatColor.BLUE + " Blue Team Wins! " + ChatColor.DARK_PURPLE + "##");
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "#################");
-            
+
             teamWin(plugin, "blue");
-            
+            return;
+        }
+        if ((e.getBlock().getLocation().getBlockX() == corebluex) && (e.getBlock().getLocation().getBlockZ() == corebluez)) {
+
             //Cancel the game task
             Bukkit.getScheduler().cancelAllTasks();
             //Quick fix for it canceling auto broadcasts
             plugin.bfm.scheduleAnnouncerTask();
-            
             //Cycle the maps!
             new Cycle(plugin).runTaskTimer(plugin, 0L, 20L);
-            return;
-        }
-        if ((e.getBlock().getLocation().getBlockX() == corebluex) && (e.getBlock().getLocation().getBlockZ() == corebluez)) {
+
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "#################");
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "##" + ChatColor.GOLD + "  Game Over!  " + ChatColor.DARK_PURPLE + "####");
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "##" + ChatColor.DARK_RED + " Red Team Wins! " + ChatColor.DARK_PURPLE + "##");
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "#################");
-            
+
             teamWin(plugin, "red");
-            
-            //Cancel the game task
-            Bukkit.getScheduler().cancelAllTasks();
-            
-            //Cycle the maps!
-            new Cycle(plugin).runTaskTimer(plugin, 0L, 20L);
             return;
         }
     }

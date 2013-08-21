@@ -17,8 +17,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.block.BlockFormEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -143,6 +145,42 @@ public class EventListener implements Listener {
     public void onSnowForm(BlockFormEvent e) {
         if (e.getNewState().getData().getItemType() == Material.SNOW) {
             e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onTeamBreak(BlockBreakEvent e) {
+        if (plugin.isRed.contains(e.getPlayer()) && (plugin.getConfig().get("inpregame").equals(true))) {
+            e.setCancelled(true);
+            return;
+        }
+        if (plugin.isBlue.contains(e.getPlayer()) && (plugin.getConfig().get("inpregame").equals(true))) {
+            e.setCancelled(true);
+            return;
+        }
+    }
+
+    @EventHandler
+    public void onTeamPlace(BlockPlaceEvent e) {
+        if (plugin.isRed.contains(e.getPlayer()) && (plugin.getConfig().get("inpregame").equals(true))) {
+            e.setCancelled(true);
+            return;
+        }
+        if (plugin.isBlue.contains(e.getPlayer()) && (plugin.getConfig().get("inpregame").equals(true))) {
+            e.setCancelled(true);
+            return;
+        }
+    }
+
+    @EventHandler
+    public void onTeamInteract(PlayerInteractEvent e) {
+        if (plugin.isRed.contains(e.getPlayer()) && (plugin.getConfig().get("inpregame").equals(true))) {
+            e.setCancelled(true);
+            return;
+        }
+        if (plugin.isBlue.contains(e.getPlayer()) && (plugin.getConfig().get("inpregame").equals(true))) {
+            e.setCancelled(true);
+            return;
         }
     }
 }

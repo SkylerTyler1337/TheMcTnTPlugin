@@ -44,7 +44,7 @@ public class RedBlue implements Listener {
             p.setAllowFlight(false);
             p.setFlying(false);
 
-            plugin.ih.giveItems(p);
+            plugin.itemhandler.giveItems(p);
 
             Location redloc = null;
             String redstring = (String) plugin.cfManager.getMapsFile().get("Maps." + plugin.getCurrentMap() + ".teamspawns.red");
@@ -79,7 +79,7 @@ public class RedBlue implements Listener {
             p.setAllowFlight(false);
             p.setFlying(false);
 
-            plugin.ih.giveItems(p);
+            plugin.itemhandler.giveItems(p);
 
             Location blueloc = null;
             String bluestring = (String) plugin.cfManager.getMapsFile().get("Maps." + plugin.getCurrentMap() + ".teamspawns.blue");
@@ -104,7 +104,7 @@ public class RedBlue implements Listener {
             p.setAllowFlight(false);
             p.setFlying(false);
 
-            plugin.ih.giveItems(p);
+            plugin.itemhandler.giveItems(p);
 
             Location redloc = null;
             String redstring = (String) plugin.cfManager.getMapsFile().get("Maps." + plugin.getCurrentMap() + ".teamspawns.red");
@@ -125,7 +125,7 @@ public class RedBlue implements Listener {
             p.setAllowFlight(false);
             p.setFlying(false);
 
-            plugin.ih.giveItems(p);
+            plugin.itemhandler.giveItems(p);
 
             Location blueloc = null;
             String bluestring = (String) plugin.cfManager.getMapsFile().get("Maps." + plugin.getCurrentMap() + ".teamspawns.blue");
