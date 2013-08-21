@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mctnt.plugin.util;
+package com.mctnt.plugin.movement;
 
 import com.mctnt.plugin.core.TheMcTnTPlugin;
 import org.bukkit.Bukkit;
@@ -70,7 +70,6 @@ public class Compass implements Listener {
                     }
                 }
             }
-
         }
     }
 }

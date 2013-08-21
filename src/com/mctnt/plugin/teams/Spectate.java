@@ -77,6 +77,11 @@ public class Spectate implements Listener {
 
     @EventHandler
     public void onJoin(final PlayerJoinEvent e) {
+        
+        //Fix hunger/food
+        e.getPlayer().setFoodLevel(20);
+        e.getPlayer().setHealth(20);
+        
         for (Player p : Bukkit.getOnlinePlayers()) {
             TagAPI.refreshPlayer(p);
         }

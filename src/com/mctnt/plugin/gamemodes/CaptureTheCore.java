@@ -127,10 +127,10 @@ public class CaptureTheCore implements Listener {
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "#################");
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "##" + ChatColor.GOLD + "  Game Over!  " + ChatColor.DARK_PURPLE + "####");
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "##" + ChatColor.DARK_RED + " Red Team Wins! " + ChatColor.DARK_PURPLE + "##");
+            Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "#################");
             
             teamWin(plugin, "red");
             
-            Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "#################");
             //Cancel the game task
             Bukkit.getScheduler().cancelAllTasks();
             
