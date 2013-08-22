@@ -32,6 +32,8 @@ public class CaptureTheCore implements Listener {
     public static TheMcTnTPlugin plugin;
     public static final StateFlag RED_CORE = new StateFlag("redcore", false);
     public static final StateFlag BLUE_CORE = new StateFlag("bluecore", false);
+    
+    private String won = "no";
 
     public CaptureTheCore(TheMcTnTPlugin instance) {
         this.plugin = instance;
@@ -102,9 +104,17 @@ public class CaptureTheCore implements Listener {
         
         //Return if its cycling
         if (plugin.getConfig().get("incycle").equals(true)) {
+            e.setCancelled(true);
             return;
         }
-
+        
+        //Patch A1 BETA for spam win
+        
+        //Cooldown return if true
+        if (won == "yes") {
+            return;
+        }
+        
         if ((e.getBlock().getLocation().getBlockX() == coreredx) && (e.getBlock().getLocation().getBlockZ() == coreredz)) {
            
             //Cancel the game task
@@ -119,6 +129,9 @@ public class CaptureTheCore implements Listener {
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "##" + ChatColor.GOLD + "  Game Over!  " + ChatColor.DARK_PURPLE + "####");
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "##" + ChatColor.BLUE + " Blue Team Wins! " + ChatColor.DARK_PURPLE + "##");
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "#################");
+
+            //Set to yes
+            setWinner("yes");
 
             teamWin(plugin, "blue");
             return;
@@ -137,6 +150,9 @@ public class CaptureTheCore implements Listener {
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "##" + ChatColor.DARK_RED + " Red Team Wins! " + ChatColor.DARK_PURPLE + "##");
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "#################");
 
+            //Set to yes
+            setWinner("yes");
+
             teamWin(plugin, "red");
             return;
         }
@@ -145,5 +161,9 @@ public class CaptureTheCore implements Listener {
     public void teamWin(Plugin plugin, String team) {
         TeamWinEvent event = new TeamWinEvent(plugin, team);
         Bukkit.getServer().getPluginManager().callEvent(event);
+    }
+    
+    public void setWinner(String s) {
+        this.won = s;
     }
 }

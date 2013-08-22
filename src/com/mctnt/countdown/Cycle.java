@@ -32,6 +32,9 @@ public class Cycle extends BukkitRunnable {
         if (time2Cycle > 0) {
 
             if (time2Cycle == 30) {
+                plugin.ctc.setWinner("no");
+                
+                
                 plugin.getConfig().set("incycle", true);
                 plugin.saveConfig();
                 plugin.cycleMaps();

@@ -69,6 +69,7 @@ public class TheMcTnTPlugin extends JavaPlugin {
     public RandomTeam randomteam;
     public ItemHandler itemhandler;
     public CommandCycle cc;
+    public CaptureTheCore ctc;
     
     //3 Lists For Teams
     public ArrayList<Player> isSpectator = new ArrayList<Player>();
@@ -95,6 +96,7 @@ public class TheMcTnTPlugin extends JavaPlugin {
         this.randomteam = new RandomTeam(this);
         this.itemhandler = new ItemHandler(this);
         this.cc = new CommandCycle(this);
+        this.ctc = new CaptureTheCore(this);
 
         //Kick everyone on reload/start if they somehow get in :)
         for (Player pl : Bukkit.getOnlinePlayers()) {
