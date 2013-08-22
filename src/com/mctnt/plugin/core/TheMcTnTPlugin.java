@@ -28,6 +28,7 @@ import static com.mctnt.plugin.gamemodes.CaptureTheCore.RED_CORE;
 import static com.mctnt.plugin.gamemodes.CaptureTheCore.BLUE_CORE;
 import com.mctnt.plugin.movement.Compass;
 import com.mctnt.plugin.teams.ItemHandler;
+import com.mctnt.plugin.util.BetterTnT;
 import com.mctnt.plugin.util.EventListener;
 import com.mctnt.plugin.util.NameTags;
 import com.mctnt.plugin.util.TeamSelector;
@@ -124,6 +125,7 @@ public class TheMcTnTPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new AntiTeamkill(this), this);
         getServer().getPluginManager().registerEvents(new UserStorage(this), this);
         getServer().getPluginManager().registerEvents(new CaptureTheCore(this), this);
+        getServer().getPluginManager().registerEvents(new BetterTnT(this), this);
         
         this.getCommand("announce").setExecutor(new AnnounceCommand(this));
         this.getCommand("broadcast").setExecutor(new BroadcastCommand(this));

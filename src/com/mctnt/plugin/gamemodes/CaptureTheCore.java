@@ -98,16 +98,10 @@ public class CaptureTheCore implements Listener {
             return;
         }
         
+        //Check that it is not in cycle and its not in pre game
         if (!(plugin.getConfig().getString("incycle").equals("false") && (plugin.getConfig().getString("inpregame").equals("false")))) {
             return;
         }
-        
-        //Return if its cycling
-        if (plugin.getConfig().get("incycle").equals(true)) {
-            e.setCancelled(true);
-            return;
-        }
-        
         //Patch A1 BETA for spam win
         
         //Cooldown return if true

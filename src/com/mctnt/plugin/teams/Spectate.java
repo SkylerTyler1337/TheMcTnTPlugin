@@ -38,8 +38,6 @@ public class Spectate implements Listener {
     public void addSpectate(Player p) {
         plugin.isSpectator.add(p);
 
-        
-        
         p.sendMessage(ChatColor.DARK_AQUA + "You are now a " + ChatColor.YELLOW + "spectator" + ChatColor.DARK_AQUA + "!");
         p.getOpenInventory().close();
         p.getInventory().setArmorContents(null);
@@ -55,7 +53,7 @@ public class Spectate implements Listener {
             TagAPI.refreshPlayer(pl);
         }
       
-        //add the server selctor
+        //Add the server selctor
         plugin.ts.addSelector(p);
         p.getInventory().addItem(new ItemStack(Material.COMPASS, 1));
 
@@ -77,7 +75,6 @@ public class Spectate implements Listener {
 
     @EventHandler
     public void onJoin(final PlayerJoinEvent e) {
-        
         //Fix hunger/food
         e.getPlayer().setFoodLevel(20);
         e.getPlayer().setHealth(20);
@@ -121,7 +118,6 @@ public class Spectate implements Listener {
     public void onSpectateBreak(BlockBreakEvent e) {
         if (plugin.isSpectator.contains(e.getPlayer()) && (!plugin.isAdminMode.contains(e.getPlayer().getName()))) {
             e.setCancelled(true);
-            return;
         }
     }
 
@@ -129,7 +125,6 @@ public class Spectate implements Listener {
     public void onSpectatePlace(BlockPlaceEvent e) {
         if (plugin.isSpectator.contains(e.getPlayer()) && (!plugin.isAdminMode.contains(e.getPlayer().getName()))) {
             e.setCancelled(true);
-            return;
         }
     }
     
@@ -137,7 +132,6 @@ public class Spectate implements Listener {
     public void onSpectateInteract(PlayerInteractEvent e) {
         if (plugin.isSpectator.contains(e.getPlayer()) && (!plugin.isAdminMode.contains(e.getPlayer().getName()))) {
             e.setCancelled(true);
-            return;
         }
     }
 }

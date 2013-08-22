@@ -124,7 +124,6 @@ public class CommandMcTNT implements CommandExecutor {
                     return true;
                 }
                 plugin.cfManager.getMapsFile().createSection("Maps." + args[1]);
-                plugin.cfManager.getMapsFile().set("Maps." + args[1] + ".enabled", "true");
                 plugin.cfManager.getMapsFile().set("Maps." + args[1] + ".displayname", "ExampleName" + args[1]);
                 plugin.cfManager.getMapsFile().set("Maps." + args[1] + ".max-players", 25);
                 plugin.cfManager.getMapsFile().set("Maps." + args[1] + ".author", "Example");
@@ -138,6 +137,7 @@ public class CommandMcTNT implements CommandExecutor {
                 plugin.cfManager.getMapsFile().set("Maps." + args[1] + ".Core-Red-Lava-Z", "");
                 plugin.cfManager.getMapsFile().set("Maps." + args[1] + ".Core-Blue-Lava-X", "");
                 plugin.cfManager.getMapsFile().set("Maps." + args[1] + ".Core-Blue-Lava-Z", "");
+                plugin.cfManager.getMapsFile().set("Maps." + args[1] + ".bettertnt", "false");
                 sender.sendMessage(ChatColor.AQUA + "Map " + ChatColor.YELLOW + args[1] + ChatColor.AQUA + " has been added");
                 plugin.cfManager.saveMapsFile();
                 return true;
