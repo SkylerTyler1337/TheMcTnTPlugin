@@ -61,6 +61,5 @@ public class UserStorage implements Listener {
             plugin.cfManager.getUsersFile().set("Users." + killed.getName() + ".deaths", deadnewdeaths);
             plugin.cfManager.saveUsersFile();
         }
-        
     }
 }

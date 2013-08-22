@@ -29,3 +29,5 @@ commands:
     description: Join the current game
   cycle:
     description: Cycles the maps for server admins
+  stats:
+    description: Displays player stats

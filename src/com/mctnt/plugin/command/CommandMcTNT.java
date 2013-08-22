@@ -180,8 +180,13 @@ public class CommandMcTNT implements CommandExecutor {
                 plugin.cfManager.reloadMapsFile();
                 sender.sendMessage(ChatColor.BLUE + "Maps have been reloaded");
                 return true;
+            }
+            if ((args.length == 1) && (args[0].equalsIgnoreCase("reloadusers"))) {
+                plugin.cfManager.reloadUsersFile();
+                sender.sendMessage(ChatColor.YELLOW + "Users have been reloaded");
+                return true;
             } else {
-                sender.sendMessage(ChatColor.RED + "Usage: /mctnt <reload||setdefault||restore||tp||addmap||reloadmaps||setspawn||admin||enable||disable> <map>");
+                sender.sendMessage(ChatColor.RED + "Usage: /mctnt <reload||setdefault||restore||reloadusers||tp||addmap||reloadmaps||setspawn||admin||enable||disable> <map>");
             }
         }
         return false;

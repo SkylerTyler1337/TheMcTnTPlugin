@@ -13,6 +13,7 @@ import com.mctnt.plugin.command.CommandJoin;
 import com.mctnt.plugin.command.CommandMap;
 import com.mctnt.plugin.command.CommandMcTNT;
 import com.mctnt.plugin.command.CommandSethome;
+import com.mctnt.plugin.command.CommandStats;
 import com.mctnt.plugin.gamemodes.CaptureTheCore;
 import com.mctnt.plugin.maps.MapManager;
 import com.mctnt.plugin.restart.RestartCommand;
@@ -36,9 +37,12 @@ import com.mctnt.plugin.util.WorldGuardUtils;
 import com.mewin.WGCustomFlags.WGCustomFlagsPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -138,6 +142,7 @@ public class TheMcTnTPlugin extends JavaPlugin {
         this.getCommand("reboot").setExecutor(new RestartCommand(this));
         this.getCommand("join").setExecutor(new CommandJoin(this));
         this.getCommand("cycle").setExecutor(new CommandCycle(this));
+        this.getCommand("stats").setExecutor(new CommandStats(this));
 
         this.pluginWorldGuard = WorldGuardUtils.getWorldGuard(this);
         this.pluginWGCustomFlags = WorldGuardUtils.getWGCustomFlags(this);
@@ -201,11 +206,11 @@ public class TheMcTnTPlugin extends JavaPlugin {
         getConfig().set("inpregame", true);
         getConfig().set("incycle", false);
         saveConfig();
-        
+    
         //Start le game
         new PreGame(plugin, 30).runTaskTimer(plugin, 0L, 20L);
     }
-    
+
     @Override
     public void onDisable() {
         System.out.println(pdfFile.getName() + " version " + pdfFile.getVersion() + " has been disabled");
