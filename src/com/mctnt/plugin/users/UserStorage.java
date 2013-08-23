@@ -35,6 +35,10 @@ public class UserStorage implements Listener {
             plugin.cfManager.getUsersFile().set("Users." + p.getName() + ".deaths", 0);
             plugin.cfManager.saveUsersFile();
         }
+        
+        if (!plugin.getConfig().getString("usemysql").equals("true")) {
+            return;
+        }
 
         try {
             final Statement statement = plugin.c.createStatement();
@@ -70,19 +74,6 @@ public class UserStorage implements Listener {
             int deadnewdeaths = deaddeaths + 1;
             plugin.cfManager.getUsersFile().set("Users." + killed.getName() + ".deaths", deadnewdeaths);
             plugin.cfManager.saveUsersFile();
-
-
-            try {
-                final Statement statement = plugin.c.createStatement();
-                
-                //Add 1 death to the died person
-                statement.executeUpdate("UPDATE  `mctnt`.`playerstats` SET  `deaths` =  '" + deadnewdeaths + "' WHERE  `playerstats`.`playername` = '" + killed.getName() + "';");
-                
-                //Add 1 kill to the killer
-                statement.executeUpdate("UPDATE  `mctnt`.`playerstats` SET  `kills` =  '" + killernewkills + "' WHERE  `playerstats`.`playername` = '" + killer.getName() + "';");
-            } catch (SQLException ex) {
-                System.out.println("[TheMcTnTPlugin] Could not create SQL statement");
-            }
         }
     }
 }

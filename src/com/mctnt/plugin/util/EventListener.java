@@ -107,6 +107,10 @@ public class EventListener implements Listener {
         if (e.getClickedBlock() == null) {
             return;
         }
+
+        if (!plugin.getConfig().getString("infinite").equals("true")) {
+            return;
+        }
         if (e.getClickedBlock().getType().equals(Material.DISPENSER)) {
             e.setCancelled(true);
             return;
@@ -121,7 +125,7 @@ public class EventListener implements Listener {
         if (e.isCancelled()) {
             return;
         }
-        if (plugin.getConfig().getString("infinite").equalsIgnoreCase("false")) {
+        if (plugin.getConfig().getString("infinite").equals("false")) {
             return;
         }
         CraftDispenser dispenser = new CraftDispenser(e.getBlock());

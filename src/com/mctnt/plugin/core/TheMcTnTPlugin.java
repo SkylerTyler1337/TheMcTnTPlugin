@@ -30,6 +30,7 @@ import static com.mctnt.plugin.gamemodes.CaptureTheCore.BLUE_CORE;
 import com.mctnt.plugin.movement.Compass;
 import com.mctnt.plugin.mysql.MySQL;
 import com.mctnt.plugin.teams.ItemHandler;
+import static com.mctnt.plugin.users.UserStorage.plugin;
 import com.mctnt.plugin.util.BetterTnT;
 import com.mctnt.plugin.util.EventListener;
 import com.mctnt.plugin.util.NameTags;
@@ -54,6 +55,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 /**
  *
@@ -97,7 +99,7 @@ public class TheMcTnTPlugin extends JavaPlugin {
     public void onEnable() {
         plugin = this;
      
-            MySQL MySQL = new MySQL(this.getConfig().getString("dbhost"), this.getConfig().getString("dbport"), this.getConfig().getString("dbname"), this.getConfig().getString("dbuser"), this.getConfig().getString("dbpass"));
+         MySQL MySQL = new MySQL(this.getConfig().getString("dbhost"), this.getConfig().getString("dbport"), this.getConfig().getString("dbname"), this.getConfig().getString("dbuser"), this.getConfig().getString("dbpass"));
         
         this.bfm = new BroadcastManager(this);
         this.cfManager = new ConfigurationManager(this);
@@ -221,6 +223,14 @@ public class TheMcTnTPlugin extends JavaPlugin {
     
         //Start le game
         new PreGame(plugin, 30).runTaskTimer(plugin, 0L, 20L);
+        
+        if (getConfig().getString("usemysql").equals("true")) {
+        //Schedule syncer
+        scheduleSyncStats();
+        System.out.println("[TheMcTnTPlugin] Stats will auto sync!");
+        } else {
+            System.out.println("[TheMcTnTPlugin] Not using SQL");
+        }
     }
 
     @Override
@@ -276,5 +286,30 @@ public class TheMcTnTPlugin extends JavaPlugin {
         //Add 1
         this.mapcounter += 1;
     }
- 
+
+    public void syncStats() {
+        try {
+            final Statement statement = plugin.c.createStatement();
+            System.out.println("[TheMcTnTPlugin] Syncing stats");
+            for (Player p : Bukkit.getOnlinePlayers()) {
+
+                int deaths = (this.cfManager.getUsersFile().getInt("Users." + p.getName() + ".deaths"));
+                int kills = (this.cfManager.getUsersFile().getInt("Users." + p.getName() + ".kills"));
+
+                statement.executeUpdate("UPDATE  `mctnt`.`playerstats` SET  `deaths` =  '" + deaths + "' WHERE  `playerstats`.`playername` = '" + p.getName() + "';");
+                statement.executeUpdate("UPDATE  `mctnt`.`playerstats` SET  `kills` =  '" + kills + "' WHERE  `playerstats`.`playername` = '" + p.getName() + "';");
+                System.out.println("[TheMcTnTPlugin] All player stats have been synced");
+            }
+        } catch (SQLException ex) {
+            System.out.println("[TheMcTnTPlugin] Could not create SQL statement");
+        }
+    }
+
+    public BukkitTask scheduleSyncStats() {
+        return getServer().getScheduler().runTaskTimerAsynchronously(this, new Runnable() {
+            public void run() {
+                syncStats();
+            }
+        }, 40, 1200);
+    }
 }
