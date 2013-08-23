@@ -5,6 +5,8 @@
 package com.mctnt.plugin.users;
 
 import com.mctnt.plugin.core.TheMcTnTPlugin;
+import java.sql.SQLException;
+import java.sql.Statement;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -33,11 +35,19 @@ public class UserStorage implements Listener {
             plugin.cfManager.getUsersFile().set("Users." + p.getName() + ".deaths", 0);
             plugin.cfManager.saveUsersFile();
         }
+
+        try {
+            final Statement statement = plugin.c.createStatement();
+            String name = e.getPlayer().getName();
+            statement.executeUpdate("INSERT INTO `mctnt`.`playerstats` (`playername`, `kills`, `deaths`) VALUES ('" + name + "', '0', '0');");
+        } catch (SQLException ex) {
+            System.out.println("[TheMcTnTPlugin] Could not create SQL statement");
+        }
     }
-    
+
     @EventHandler
     public void onStatsDeath(PlayerDeathEvent e) {
-        
+
         if (!(e.getEntity() instanceof Player)) {
             return;
         }
@@ -60,6 +70,19 @@ public class UserStorage implements Listener {
             int deadnewdeaths = deaddeaths + 1;
             plugin.cfManager.getUsersFile().set("Users." + killed.getName() + ".deaths", deadnewdeaths);
             plugin.cfManager.saveUsersFile();
+
+
+            try {
+                final Statement statement = plugin.c.createStatement();
+                
+                //Add 1 death to the died person
+                statement.executeUpdate("UPDATE  `mctnt`.`playerstats` SET  `deaths` =  '" + deadnewdeaths + "' WHERE  `playerstats`.`playername` = '" + killed.getName() + "';");
+                
+                //Add 1 kill to the killer
+                statement.executeUpdate("UPDATE  `mctnt`.`playerstats` SET  `kills` =  '" + killernewkills + "' WHERE  `playerstats`.`playername` = '" + killer.getName() + "';");
+            } catch (SQLException ex) {
+                System.out.println("[TheMcTnTPlugin] Could not create SQL statement");
+            }
         }
     }
 }

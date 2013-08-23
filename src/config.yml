@@ -22,3 +22,9 @@ inpregame: false
 ##Maps in rotation
 maps:
 - airshipbattle
+##MySQL
+dbhost:
+dbport:
+dbuser:
+dbpass:
+dbname:

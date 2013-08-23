@@ -28,6 +28,7 @@ import static com.mctnt.plugin.teams.AntiBuildInBase.GLOBAL_BUILD;
 import static com.mctnt.plugin.gamemodes.CaptureTheCore.RED_CORE;
 import static com.mctnt.plugin.gamemodes.CaptureTheCore.BLUE_CORE;
 import com.mctnt.plugin.movement.Compass;
+import com.mctnt.plugin.mysql.MySQL;
 import com.mctnt.plugin.teams.ItemHandler;
 import com.mctnt.plugin.util.BetterTnT;
 import com.mctnt.plugin.util.EventListener;
@@ -37,7 +38,9 @@ import com.mctnt.plugin.util.WorldGuardUtils;
 import com.mewin.WGCustomFlags.WGCustomFlagsPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -87,10 +90,14 @@ public class TheMcTnTPlugin extends JavaPlugin {
     //Custom worldguard flags
     private WGCustomFlagsPlugin pluginWGCustomFlags;
     private WorldGuardPlugin pluginWorldGuard;
+    
+    MySQL MySQL = new MySQL("localhost", "3306", "mctnt", "harry5573", "");
+    public Connection c = null;
 
     @Override
     public void onEnable() {
         plugin = this;
+     
         
         this.bfm = new BroadcastManager(this);
         this.cfManager = new ConfigurationManager(this);
@@ -206,6 +213,11 @@ public class TheMcTnTPlugin extends JavaPlugin {
         getConfig().set("inpregame", true);
         getConfig().set("incycle", false);
         saveConfig();
+        
+        //
+        //MySQL
+        //
+        c = MySQL.open();
     
         //Start le game
         new PreGame(plugin, 30).runTaskTimer(plugin, 0L, 20L);
