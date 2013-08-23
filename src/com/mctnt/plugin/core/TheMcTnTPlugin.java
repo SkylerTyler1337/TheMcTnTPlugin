@@ -91,13 +91,13 @@ public class TheMcTnTPlugin extends JavaPlugin {
     private WGCustomFlagsPlugin pluginWGCustomFlags;
     private WorldGuardPlugin pluginWorldGuard;
     
-    MySQL MySQL = new MySQL("localhost", "3306", "mctnt", "harry5573", "");
     public Connection c = null;
 
     @Override
     public void onEnable() {
         plugin = this;
      
+            MySQL MySQL = new MySQL(this.getConfig().getString("dbhost"), this.getConfig().getString("dbport"), this.getConfig().getString("dbname"), this.getConfig().getString("dbuser"), this.getConfig().getString("dbpass"));
         
         this.bfm = new BroadcastManager(this);
         this.cfManager = new ConfigurationManager(this);

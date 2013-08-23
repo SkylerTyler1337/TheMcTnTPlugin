@@ -23,8 +23,8 @@ inpregame: false
 maps:
 - airshipbattle
 ##MySQL
+dbname:
 dbhost:
 dbport:
 dbuser:
 dbpass:
-dbname:
