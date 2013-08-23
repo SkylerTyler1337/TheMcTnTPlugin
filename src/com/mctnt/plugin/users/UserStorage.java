@@ -55,25 +55,23 @@ public class UserStorage implements Listener {
         if (!(e.getEntity() instanceof Player)) {
             return;
         }
-        
+
         Player killed = e.getEntity();
         Player killer = killed.getKiller();
-        
+
+        int deaddeaths = plugin.cfManager.getUsersFile().getInt("Users." + killed.getName() + ".deaths");
+        int deadnewdeaths = deaddeaths + 1;
+        plugin.cfManager.getUsersFile().set("Users." + killed.getName() + ".deaths", deadnewdeaths);
+        plugin.cfManager.saveUsersFile();
+
         if (killer == null) {
             return;
         }
-  
-        if (killed.getKiller() == killer) {
-            
             int killerkills = plugin.cfManager.getUsersFile().getInt("Users." + killer.getName() + ".kills");
             int killernewkills = killerkills + 1;
             plugin.cfManager.getUsersFile().set("Users." + killer.getName() + ".kills", killernewkills);
             plugin.cfManager.saveUsersFile();
-            
-            int deaddeaths = plugin.cfManager.getUsersFile().getInt("Users." + killed.getName() + ".deaths");
-            int deadnewdeaths = deaddeaths + 1;
-            plugin.cfManager.getUsersFile().set("Users." + killed.getName() + ".deaths", deadnewdeaths);
-            plugin.cfManager.saveUsersFile();
+
+
         }
-    }
 }

@@ -65,11 +65,26 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        Player p = e.getPlayer();
+        final Player p = e.getPlayer();
         e.setJoinMessage(ChatColor.YELLOW + e.getPlayer().getName() + ChatColor.DARK_AQUA + " joined the server!");
 
         if (p.getGameMode().equals(GameMode.CREATIVE)) {
             Bukkit.broadcastMessage(ChatColor.YELLOW + "Player" + " " + ChatColor.BLUE + p.getName() + " " + ChatColor.YELLOW + "logged in with gamemode CREATIVE");
+        }
+
+        if (p.hasPermission("mctnt.premium")) {
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                public void run() {
+                    p.sendMessage(ChatColor.GOLD + "You are " + ChatColor.AQUA + "premium" + ChatColor.GOLD + "! You can now join any team/full matches");
+                }
+            }, 70L);
+            return;
+        } else {
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                public void run() {
+                    p.sendMessage(ChatColor.GOLD + "You are not currently premium purchase premium at " + ChatColor.DARK_PURPLE + "http://www.mc-tnt.net/donate");
+                }
+            }, 70L);
         }
     }
 

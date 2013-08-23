@@ -18,6 +18,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
@@ -130,6 +131,13 @@ public class Spectate implements Listener {
     
     @EventHandler
     public void onSpectateInteract(PlayerInteractEvent e) {
+        if (plugin.isSpectator.contains(e.getPlayer()) && (!plugin.isAdminMode.contains(e.getPlayer().getName()))) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onSpectatePickup(PlayerPickupItemEvent e) {
         if (plugin.isSpectator.contains(e.getPlayer()) && (!plugin.isAdminMode.contains(e.getPlayer().getName()))) {
             e.setCancelled(true);
         }

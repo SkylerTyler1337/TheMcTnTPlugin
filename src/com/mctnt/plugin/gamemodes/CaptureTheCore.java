@@ -80,7 +80,7 @@ public class CaptureTheCore implements Listener {
     @EventHandler
     public void onLavaFlow(BlockFromToEvent e) {
         
-        if (!plugin.cfManager.getMapsFile().get("Maps." + plugin.getCurrentMap() + ".gamemode").equals("ctc")) {
+        if (!plugin.cfManager.getMapsFile().getString("Maps." + plugin.getCurrentMap() + ".gamemode").equals("ctc")) {
             return;
         }
 

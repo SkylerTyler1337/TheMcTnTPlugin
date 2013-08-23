@@ -14,6 +14,7 @@ import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 /**
@@ -27,20 +28,20 @@ public class BetterTnT implements Listener {
     public BetterTnT(TheMcTnTPlugin instance) {
         this.plugin = instance;
     }
-    
-    @EventHandler(priority= EventPriority.LOWEST)
+
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onEntityClick(PlayerInteractEntityEvent e) {
-        
+
         //Return if the map dosent have tntshears enabled
-        if (!plugin.cfManager.getMapsFile().get("Maps." + plugin.getCurrentMap() + ".bettertnt").equals("true")) {
+        if (!plugin.cfManager.getMapsFile().getString("Maps." + plugin.getCurrentMap() + ".bettertnt").equals("true")) {
             return;
         }
-        
+
         Entity clicked = e.getRightClicked();
         Player player = e.getPlayer();
         if (player.getItemInHand().getType().equals(Material.SHEARS) && (clicked instanceof TNTPrimed)) {
+            e.getPlayer().sendMessage(ChatColor.YELLOW + "You defused some tnt that was " + ChatColor.AQUA + clicked.getTicksLived() + "%" + ChatColor.YELLOW + " primed!");
             clicked.remove();
-            e.getPlayer().sendMessage(ChatColor.GREEN + "TnT Defused");
         }
     }
     
