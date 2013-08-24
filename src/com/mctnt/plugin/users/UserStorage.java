@@ -43,7 +43,7 @@ public class UserStorage implements Listener {
         try {
             final Statement statement = plugin.c.createStatement();
             String name = e.getPlayer().getName();
-            statement.executeUpdate("INSERT INTO `mctnt`.`playerstats` (`playername`, `kills`, `deaths`) VALUES ('" + name + "', '0', '0');");
+            statement.executeUpdate("INSERT INTO `mctntstats`.`playerstats` (`playername`, `kills`, `deaths`) VALUES ('" + name + "', '0', '0');");
         } catch (SQLException ex) {
             System.out.println("[TheMcTnTPlugin] Could not create SQL statement");
         }

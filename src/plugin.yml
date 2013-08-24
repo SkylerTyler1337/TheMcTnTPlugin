@@ -3,7 +3,7 @@ description: MiniGame manager for the mctnt plugin
 authors: [Harry5573]
 website: www.mc-tnt.net
 main: com.mctnt.plugin.core.TheMcTnTPlugin
-version: 0.9-SNAPSHOT
+version: 1.0
 depend: [ WorldGuard, WGCustomFlags, TagAPI, WorldEdit ]
 database: false
 commands:

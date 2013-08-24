@@ -15,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -142,4 +143,18 @@ public class Spectate implements Listener {
             e.setCancelled(true);
         }
     }
+    
+    @EventHandler
+    public void onSpectateFood(FoodLevelChangeEvent e) {
+        
+        if (!(e.getEntity() instanceof Player)) {
+            return;
+        }
+        
+        Player p = (Player)e.getEntity();
+        if (plugin.isSpectator.contains(p)) {
+            e.setCancelled(true);
+        }
+    }
 }
+

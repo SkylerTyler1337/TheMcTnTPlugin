@@ -23,8 +23,8 @@ import com.mctnt.plugin.teams.RedBlue;
 import com.mctnt.plugin.teams.RespawnListener;
 import com.mctnt.plugin.teams.Spectate;
 import com.mctnt.plugin.users.UserStorage;
-import com.mctnt.plugin.teams.AntiBuildInBase;
-import static com.mctnt.plugin.teams.AntiBuildInBase.GLOBAL_BUILD;
+import com.mctnt.plugin.util.AntiBuildInBase;
+import static com.mctnt.plugin.util.AntiBuildInBase.GLOBAL_BUILD;
 import static com.mctnt.plugin.gamemodes.CaptureTheCore.RED_CORE;
 import static com.mctnt.plugin.gamemodes.CaptureTheCore.BLUE_CORE;
 import com.mctnt.plugin.movement.Compass;
@@ -296,8 +296,8 @@ public class TheMcTnTPlugin extends JavaPlugin {
                 int deaths = (this.cfManager.getUsersFile().getInt("Users." + p.getName() + ".deaths"));
                 int kills = (this.cfManager.getUsersFile().getInt("Users." + p.getName() + ".kills"));
 
-                statement.executeUpdate("UPDATE  `mctnt`.`playerstats` SET  `deaths` =  '" + deaths + "' WHERE  `playerstats`.`playername` = '" + p.getName() + "';");
-                statement.executeUpdate("UPDATE  `mctnt`.`playerstats` SET  `kills` =  '" + kills + "' WHERE  `playerstats`.`playername` = '" + p.getName() + "';");
+                statement.executeUpdate("UPDATE  `mctntstats`.`playerstats` SET  `deaths` =  '" + deaths + "' WHERE  `playerstats`.`playername` = '" + p.getName() + "';");
+                statement.executeUpdate("UPDATE  `mctntstats`.`playerstats` SET  `kills` =  '" + kills + "' WHERE  `playerstats`.`playername` = '" + p.getName() + "';");
                 System.out.println("[TheMcTnTPlugin] All player stats have been synced");
             }
         } catch (SQLException ex) {
