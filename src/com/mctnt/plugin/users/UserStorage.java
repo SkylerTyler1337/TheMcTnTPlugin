@@ -34,11 +34,10 @@ public class UserStorage implements Listener {
             plugin.cfManager.getUsersFile().set("Users." + p.getName() + ".kills", 0);
             plugin.cfManager.getUsersFile().set("Users." + p.getName() + ".deaths", 0);
             plugin.cfManager.saveUsersFile();
-        }
         
         if (!plugin.getConfig().getString("usemysql").equals("true")) {
             return;
-        }
+        } else {
 
         try {
             final Statement statement = plugin.c.createStatement();
@@ -47,6 +46,8 @@ public class UserStorage implements Listener {
         } catch (SQLException ex) {
             System.out.println("[TheMcTnTPlugin] Could not create SQL statement");
         }
+        }
+    }
     }
 
     @EventHandler
